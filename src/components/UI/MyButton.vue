@@ -6,7 +6,7 @@
 
 <script lang="ts">
 export default{
-    name: 'my-button',
+    name: "my-button",
 }
 </script>
 

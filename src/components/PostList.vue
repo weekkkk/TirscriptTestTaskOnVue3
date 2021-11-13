@@ -10,41 +10,23 @@
 </template>
 
 <script  lang="ts">
-import { Vue, Options } from 'vue-class-component'
-import { Emit, Prop } from 'vue-property-decorator'
-import { PropType } from '@vue/runtime-core'
-import Post from '@/types/Post'
-import PostItem from './PostItem.vue'
+import { Vue, Options, Emit, Prop } from "vue-property-decorator";
+import { PropType } from "@vue/runtime-core";
+import Post from "@/types/Post";
+import PostItem from "./PostItem.vue";
 
 @Options({
     components: {PostItem},
-    name: 'PostList'
+    name: "PostList"
 })
 
 export default class PostList extends Vue {
-    @Prop({required: true, type: Array as PropType<Post[]>}) posts: any
+    @Prop({required: true, type: Array as PropType<Post[]>}) posts: any;
 
     @Emit() removePost(post: Post) {
-        return post
+        return post;
     }
 }
-
-// import PostItem from "@/components/PostItem"
-// export default {
-//     components: {PostItem},
-//     props: {
-//         posts: {
-//             type: Array,
-//             required: true
-//         }
-//     },
-//     methods: {
-//          removePost(post) {
-//             console.log(post)
-//             this.$emit('remove', post)
-//         }
-//     }
-// }
 </script>
 
 <style scoped>

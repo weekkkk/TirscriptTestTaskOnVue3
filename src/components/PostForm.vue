@@ -21,39 +21,17 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
-import { Emit, VModel } from 'vue-property-decorator'
-import Post from '@/types/Post'
+import { Vue, Emit } from "vue-property-decorator";
+import Post from "@/types/Post";
 
 export default class PostForm extends Vue {
-    post: Post = {id: 0, title: '', body: ''}
+    post: Post = {id: 0, title: "", body: ""}
     
     @Emit() createPost() {
-        this.post.id = Date.now()
-        return Object.assign({}, this.post)
+        this.post.id = Date.now();
+        return Object.assign({}, this.post);
     }
 }
-
-// export default {
-//     data() {
-//         return {
-//             post: {
-//             title: '',
-//             body: ''
-//             }
-//         }
-//     },
-//     methods: {
-//         createPost(event) {
-//             this.post.id = Date.now()
-//             this.$emit('create', this.post)
-//             this.post = {
-//                 title: '',
-//                 body: ''
-//             }
-//         },
-//     }
-// }
 </script>
 
 <style>

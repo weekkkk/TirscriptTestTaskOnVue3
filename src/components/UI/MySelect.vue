@@ -16,37 +16,18 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
-import { Emit, Prop } from 'vue-property-decorator'
-import SortOption from '@/types/SortOption'
-import { PropType } from '@vue/runtime-core'
+import { Vue, Emit, Prop } from "vue-property-decorator";
+import SortOption from "@/types/SortOption";
+import { PropType } from "@vue/runtime-core";
 
 export default class MySelect extends Vue {
-    @Prop({type: String}) modelValue: any
-    @Prop({type: Array as PropType<SortOption[]>, default: () => []}) options: any
+    @Prop({type: String}) modelValue: any;
+    @Prop({type: Array as PropType<SortOption[]>, default: () => []}) options: any;
     
-    @Emit('update:modelValue') changeOptions(event: any) {
-        return event.target.value
+    @Emit("update:modelValue") changeOptions(event: any) {
+        return event.target.value;
     }
 }
-
-// export default {
-//     name: 'my-select',
-//     props: {
-//         modelValue: {
-//             type: String
-//         },
-//         options: {
-//             type: Array,
-//             default: () => []
-//         }
-//     },
-//     methods: {
-//         changeOptions(event: Event) {
-//             this.$emit('update:modelValue', event.target.value)
-//         }
-//     }
-// }
 </script>
 
 <style>

@@ -7,31 +7,15 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
-import { Emit, Prop } from 'vue-property-decorator'
+import { Vue, Emit, Prop } from "vue-property-decorator";
 
 export default class MyDialog extends Vue {
-    @Prop({default: false, type: Boolean}) show: any
+    @Prop({default: false, type: Boolean}) show: any;
     
-    @Emit('update:show') hideDialog(event: any) {
-        return false
+    @Emit("update:show") hideDialog(event: any) {
+        return false;
     }
 }
-
-// export default {
-//     name: 'my-dialog',
-//     props: {
-//         show: {
-//             type: Boolean,
-//             default: false
-//         }
-//     },
-//     methods: {
-//         hideDialog(event) {
-//             this.$emit('update:show', false)
-//         }
-//     }
-// }
 </script>
 
 <style>
