@@ -1,11 +1,6 @@
 <template>
 <transition-group name="post-list">
-    <post-item
-    @remove-post="removePost"
-    :post="post" 
-    v-for="post in posts"
-    :key="post.id"
-    />
+    <post-item @remove-post="removePost" :post="post" v-for="post in posts" :key="post.id"/>
 </transition-group>
 </template>
 

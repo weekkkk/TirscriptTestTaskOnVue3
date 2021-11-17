@@ -1,30 +1,29 @@
 <template>
   <div>
     <h1>Posts page</h1>
-    <my-input
-      v-model="searchPostTitle"
-      placeholder="Search..."
-      class="findPost"
-    />
+    <my-input v-model="searchPostTitle" placeholder="Search..." class="findPost"/>
 
     <my-dialog v-model:show="dialogVisible">
       <h1>New post</h1>
       <post-form @create-post="createPost" />
     </my-dialog>
     <div class="postListHead">
-      <h2>Post list</h2>
+      <div>
+        <h2>Post list</h2>
+        <!-- <div class="pages">
+          <div v-for="page in countPages" :key="page" @click="showPage(page)" class="page" :class="{'curent-page': page === curentPage}">{{ page }}</div>
+        </div> -->
+        <my-pagination @show-page="showPage" :countPages="countPages" :curentPage="curentPage"></my-pagination>
+      </div>
       <div>
         <my-button @click="showDialog"> Create new post </my-button>
-
-        <my-select
-          v-model="selectSort"
-          :options="sortOptions"
-          class="selectSortPost"
-        />
+        <my-select v-model="selectSort" :options="sortOptions" class="selectSortPost"/>
       </div>
     </div>
     <h1 class="createPostText">{{ createPostText }}</h1>
-    <post-list @remove-post="removePost" :posts="searchPosts" />
+    <post-list @remove-post="removePost" :posts="shortList" />
+
+    
   </div>
 </template>
 
@@ -35,12 +34,17 @@ import SortOption from "@/types/SortOption";
 import SortOptionType from "@/types/SortOptionType";
 import PostList from "@/components/PostList.vue";
 import PostForm from "@/components/PostForm.vue";
+import MyPagination from "@/components/UI/MyPagination.vue"
 
 @Options({
-  components: { PostList, PostForm },
+  components: { PostList, PostForm, MyPagination },
   name: "MyApp",
 })
 export default class MyApp extends Vue {
+  sizePage = 5;
+  curentPage = 1;
+  countPages = 0;
+
   posts: Post[] = [];
   dialogVisible = false;
   selectSort: SortOptionType = "title";
@@ -57,11 +61,13 @@ export default class MyApp extends Vue {
     if (this.posts.length == 0) this.createPostText = "";
     this.posts.push(post);
     this.dialogVisible = false;
+    this.countPages = Math.ceil(this.posts.length / this.sizePage);
   }
   removePost(post: Post) {
     this.posts = this.posts.filter((p) => p.id !== post.id);
     if (this.posts.length == 0)
       this.createPostText = "Сlick on the button to create a post!";
+    this.countPages = Math.ceil(this.posts.length / this.sizePage);
   }
   showDialog() {
     this.dialogVisible = true;
@@ -71,10 +77,17 @@ export default class MyApp extends Vue {
       p1[this.selectSort]?.localeCompare(p2[this.selectSort])
     );
   }
-  get searchPosts() {
+  searchPosts() {
     return this.sortPosts().filter((p: Post) =>
       p.title.toUpperCase().includes(this.searchPostTitle.toUpperCase())
     );
+  }
+  get shortList() {
+    return this.searchPosts().slice((this.curentPage - 1) * this.sizePage, (this.curentPage - 1) * 5 + this.sizePage)
+  }
+
+  showPage(page: number) {
+    this.curentPage = page;
   }
 }
 </script>
@@ -82,6 +95,9 @@ export default class MyApp extends Vue {
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto&display=swap");
 
 h1 {
+  display: inline;
+}
+.postListHead h2 {
   display: inline;
 }
 .findPost {
@@ -92,6 +108,10 @@ h1 {
   align-items: center;
   justify-content: space-between;
   margin-top: 15px;
+}
+.postListHead>div {
+  display: inline-flex;
+  align-items: center;
 }
 .selectSortPost {
   margin-left: 15px;

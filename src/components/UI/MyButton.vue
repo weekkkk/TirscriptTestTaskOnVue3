@@ -24,6 +24,6 @@ export default{
     transform: scale(1.1);
     color: #e5eaee;
     background-color: #2d2c30;
-    border: 1px solid #e5eaee;
+    border: none;
 }
 </style>
