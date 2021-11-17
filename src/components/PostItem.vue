@@ -4,9 +4,9 @@
             <div><b>Title:</b> {{post.title}}</div>
             <div><b>Description:</b> {{post.body}}</div>
         </div>
-        <my-button
-        @click="removePost"
-        >Remove</my-button>
+        <div>
+            <my-button @click="removePost">Remove</my-button>
+        </div>
     </div>
 </template>
 
