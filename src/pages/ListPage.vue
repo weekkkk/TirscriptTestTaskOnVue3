@@ -10,9 +10,6 @@
     <div class="postListHead">
       <div>
         <h2>Post list</h2>
-        <!-- <div class="pages">
-          <div v-for="page in countPages" :key="page" @click="showPage(page)" class="page" :class="{'curent-page': page === curentPage}">{{ page }}</div>
-        </div> -->
         <my-pagination @show-page="showPage" :countPages="countPages" :curentPage="curentPage"></my-pagination>
       </div>
       <div>
@@ -22,8 +19,6 @@
     </div>
     <h1 class="createPostText">{{ createPostText }}</h1>
     <post-list @remove-post="removePost" :posts="shortList" />
-
-    
   </div>
 </template>
 
